@@ -1,0 +1,25 @@
+{
+  "territory_code": "974",
+  "include_types": ["AAP", "AMI"],
+  "keywords_include": [
+    "appel à projets",
+    "appel à manifestation d’intérêt",
+    "inclusion numérique",
+    "illectronisme",
+    "tiers-lieu",
+    "fablab",
+    "formation",
+    "insertion",
+    "FSE",
+    "culture",
+    "EAC",
+    "FDVA",
+    "PTCE",
+    "ANCT",
+    "fondation"
+  ],
+  "keywords_exclude": ["offre d’emploi", "recrutement", "stage"],
+  "freshness_days": 365,
+  "max_items": 300,
+  "update_strategy": "merge_by_url_then_title"
+}

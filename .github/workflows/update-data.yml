@@ -1,0 +1,41 @@
+name: Update opportunities data
+
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run collector
+        run: python scripts/update_opportunities.py
+
+      - name: Create Pull Request (if data changed)
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore(data): daily opportunities refresh"
+          branch: bot/daily-data-update
+          delete-branch: true
+          title: "Daily data update"
+          body: |
+            Automated daily refresh of `data/opportunities.seed.json` from Aides-territoires API.
+
+            - Source: Aides-territoires API
+            - Scope: AAP/AMI + La Réunion (974) + configured keywords
+          labels: |
+            automation
+            data-update
