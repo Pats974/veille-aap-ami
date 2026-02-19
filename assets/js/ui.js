@@ -30,7 +30,7 @@ export function createUI(store) {
     checklist: document.getElementById("view-checklist"),
     drawer: document.getElementById("detail-drawer"),
     drawerContent: document.getElementById("drawer-content"),
-    warning: document.getElementById("local-warning")
+    warning: document.getElementById("load-error")
   };
 
   function initBindings() {
@@ -132,8 +132,8 @@ export function createUI(store) {
   }
 
   function renderHeaderInfo() {
-    const stamp = store.state.meta?.generated_at || "inconnu";
-    document.getElementById("last-update").textContent = `Dernière MAJ: ${stamp}`;
+    const stamp = store.state.meta?.generated_at || "—";
+    document.getElementById("last-update").textContent = `Dernière MAJ : ${stamp}`;
     if (store.state.loadError) {
       refs.warning.textContent = `${store.state.loadError} (mode file:// nécessite souvent un import manuel)`;
       refs.warning.classList.remove("hidden");
@@ -143,6 +143,11 @@ export function createUI(store) {
   }
 
   function renderDashboard() {
+    if (store.state.loadError) {
+      refs.dashboard.innerHTML = '<article class="card"><h3>Erreur de chargement</h3><p>Importez un fichier JSON valide pour afficher les indicateurs.</p></article>';
+      return;
+    }
+
     const items = filteredOpportunities();
     const urgent = items.filter((op) => (daysUntil(op.deadline) ?? 999) < 7).length;
     const go = items.filter((op) => store.getLocal(op.id).status === "Go").length;
