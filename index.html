@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Veille AAP/AMI</title>
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <h1>Veille AAP/AMI</h1>
+      <p id="last-update">Dernière MAJ: inconnu</p>
+    </header>
+
+    <nav class="tabs" aria-label="Navigation principale">
+      <button class="tab is-active" data-view="dashboard">Dashboard</button>
+      <button class="tab" data-view="opportunities">Opportunités</button>
+      <button class="tab" data-view="kanban">Kanban</button>
+      <button class="tab" data-view="sources">Sources</button>
+      <button class="tab" data-view="checklist">Checklist</button>
+    </nav>
+
+    <main>
+      <section class="view is-active" id="view-dashboard"></section>
+
+      <section class="view" id="view-opportunities">
+        <div class="toolbar">
+          <input id="search" type="search" placeholder="Rechercher..." />
+          <select id="filter-type"><option value="">Type</option></select>
+          <select id="filter-category"><option value="">Catégorie</option></select>
+          <select id="filter-axis"><option value="">Axe</option></select>
+          <select id="filter-territory"><option value="">Territoire</option></select>
+          <input id="filter-deadline-min" type="date" />
+          <input id="filter-deadline-max" type="date" />
+          <label class="inline-check"><input id="filter-urgent" type="checkbox" />Urgent &lt; 7j</label>
+          <select id="sort-deadline">
+            <option value="asc">Deadline ↑</option>
+            <option value="desc">Deadline ↓</option>
+          </select>
+        </div>
+        <div class="actions">
+          <button id="export-json">Exporter JSON</button>
+          <button id="export-csv">Exporter CSV</button>
+          <label class="file-input">Importer JSON<input id="import-json" type="file" accept="application/json" /></label>
+        </div>
+        <div id="local-warning" class="warning hidden"></div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Titre</th>
+                <th>Type</th>
+                <th>Catégorie</th>
+                <th>Axe</th>
+                <th>Territoire</th>
+                <th>Deadline</th>
+                <th>Statut</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="opportunities-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="view" id="view-kanban"></section>
+      <section class="view" id="view-sources"></section>
+      <section class="view" id="view-checklist"></section>
+    </main>
+
+    <aside id="detail-drawer" class="drawer" aria-hidden="true">
+      <div class="drawer-panel">
+        <button id="drawer-close" class="close-btn">×</button>
+        <div id="drawer-content"></div>
+      </div>
+    </aside>
+
+    <script type="module" src="./assets/js/app.js"></script>
+  </body>
+</html>
