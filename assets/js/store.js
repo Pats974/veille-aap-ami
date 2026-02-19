@@ -2,7 +2,7 @@ import { PIPELINE_STATUSES, asArray, pick, toISODate } from "./utils.js";
 
 const LOCAL_KEY = "aap_watch_local_v1";
 const DATA_CANDIDATES = [
-  "./data/opportunities.seed.json",
+  "data/opportunities.seed.json",
   "./data/opportunities.json",
   "./data/data.json"
 ];
@@ -34,8 +34,18 @@ export function createStore() {
   }
 
   function hydrateFromPayload(payload) {
+    if (Array.isArray(payload)) {
+      state.meta = {};
+      state.opportunities = payload.map((record, index) => normalizeOpportunity(record, index));
+      return;
+    }
+
     state.meta = payload?._meta || {};
-    const source = Array.isArray(payload?.opportunities) ? payload.opportunities : [];
+    const source = Array.isArray(payload?.opportunities)
+      ? payload.opportunities
+      : Array.isArray(payload?.items)
+        ? payload.items
+        : [];
     state.opportunities = source.map((record, index) => normalizeOpportunity(record, index));
   }
 

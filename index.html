@@ -9,7 +9,8 @@
   <body>
     <header class="topbar">
       <h1>Veille AAP/AMI</h1>
-      <p id="last-update">Dernière MAJ: inconnu</p>
+      <p id="last-update">Dernière MAJ : —</p>
+      <div id="load-error" class="warning hidden"></div>
     </header>
 
     <nav class="tabs" aria-label="Navigation principale">
@@ -43,7 +44,6 @@
           <button id="export-csv">Exporter CSV</button>
           <label class="file-input">Importer JSON<input id="import-json" type="file" accept="application/json" /></label>
         </div>
-        <div id="local-warning" class="warning hidden"></div>
         <div class="table-wrap">
           <table>
             <thead>
